@@ -22,9 +22,9 @@ public class BDIModel {
 	 */
 	ArrayList<Agent> AgentList;
 	/**
-	 * The BDI Model constructor takes XMLmodels as parameters and
-	 * parses through each XMLModel and creates the agents for each XMLModel.
-	 * @param XMLmodels
+	 * The BDI Model constructor takes Filenames as parameters and
+	 * parses through each File and creates the agents for each File.
+	 * @param Filenames
 	 * @throws ParserConfigurationException 
 	 */
 	public BDIModel(ArrayList<String> Filenames) throws ParserConfigurationException{

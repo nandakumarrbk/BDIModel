@@ -38,10 +38,10 @@ public class Agent {
 	//private String imports;
 	
 	/**
-	 * The Agent constructor takes an XMLmodel input model and
-	 * parses through the model and instantiates the Beliefs,
+	 * The Agent constructor takes a Filename as input and
+	 * parses through the file and instantiates the Beliefs,
 	 * Plans, Goals, Events and Imports for the Agent.
-	 * @param inputmodel
+	 * @param filename
 	 * @see Belief 
 	 * @see Plan 
 	 * @see Goal 
