@@ -2,6 +2,19 @@ package bDIModel;
 
 import java.util.ArrayList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.io.IOException;
+
 //import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
@@ -34,59 +47,53 @@ public class Agent {
 	 * @see Goal 
 	 * @see Event
 	 */
-	public Agent(XMLmodel inputmodel) {
-		
-		/*
-		String name=inputmodel.getname();
-		String imports=inputmodel.getImports();
-		ArrayList<Event> events=inputmodel.getEvents();
-		ArrayList<Belief> beliefs=inputmodel.getBeliefs();
-		ArrayList<Plan> plans=inputmodel.getPlans();
-		ArrayList<Goal> goals=inputmodel.getGoals(); 
-		
-		agentName=inputmodel.getname();
-		Imports=inputmodel.getImports();
-		Events=inputmodel.getEvents();
-		Beliefs=inputmodel.getBeliefs();
-		Plans=inputmodel.getPlans();
-		Goals=inputmodel.getGoals(); */
-	
-		
-		String name=inputmodel.getname();
-		ArrayList<Import> imports=inputmodel.getImports();
-		ArrayList<Event> events=inputmodel.getEvents();
-		ArrayList<Belief> beliefs=inputmodel.getBeliefs();
-		ArrayList<Plan> plans=inputmodel.getPlans();
-		ArrayList<Goal> goals=inputmodel.getGoals(); 
-		
-		setAgentName(name);
-		
-		for (Import imp : imports) {
-			Import tempimport = new Import(imp);
-			Imports.add(tempimport);
-		}
-		
-		for (Event event : events) {
-			Event tempevent = new Event(event); 
-			Events.add(tempevent);
-		}
-		
-		for (Belief belief : beliefs) {
-			Belief tempbelief = new Belief(belief);
-			Beliefs.add(tempbelief);
-		}
-		
-		for (Plan plan : plans) {
-			Plan tempplan = new Plan(plan);
-			Plans.add(tempplan);
-		}
-		
-		for (Goal goal : goals) {
-			Goal tempgoal = new Goal(goal);
-			Goals.add(tempgoal);
-		}
-		
+	public Agent(String filename) throws ParserConfigurationException {
+		ReadXMLFile(filename);
 	}
+	
+	private void ReadXMLFile(String filename) throws ParserConfigurationException{
+		File fxmlFile = new File(filename);
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = null;
+		try{
+			doc = dBuilder.parse(fxmlFile);
+		} catch (SAXException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		doc.getDocumentElement().normalize();
+		//------------------Initialize Objects--------------------//
+		NodeList nList = doc.getElementsByTagName("Agent");
+		for(int i = 0; i < nList.getLength(); i++){
+			Node nNode = nList.item(i);
+			if(nNode.getNodeType() == Node.ELEMENT_NODE){
+				Element eElement = (Element) nNode;
+				//Create Belief Object with the string parameter
+				//All the constructoors are yet to be changed based on the DOM parser
+				if(eElement.getNodeName() == "belief"){
+					Belief newBelief = new Belief(eElement.getAttributes());
+					this.Beliefs.add(newBelief);
+				}
+				if(eElement.getNodeName() == "plan"){
+					Plan newPlan = new Plan(eElement.getAttributes());
+					this.Plans.add(newPlan);
+				}
+				if(eElement.getNodeName() == "goal"){
+					Goal newGoal = new Goal(eElement.getAttributes());
+					this.Goals.add(newGoal);
+				}
+				if(eElement.getNodeName() == "event"){
+					Event newEvent = new Event(eElement.getAttributes());
+					this.Events.add(newEvent);
+				}
+			}
+		}
+	}
+
 
 	/**
 	 * The getBeliefs method returns the Beliefs of the Agent.

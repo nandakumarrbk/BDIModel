@@ -5,6 +5,8 @@ package bDIModel;
 import java.util.ArrayList;
 //import java.util.Date;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 /**
  * The BDIModel class instantiates the list of Agents
  * declared for each XMLmodel and then initializes each 
@@ -23,15 +25,16 @@ public class BDIModel {
 	 * The BDI Model constructor takes XMLmodels as parameters and
 	 * parses through each XMLModel and creates the agents for each XMLModel.
 	 * @param XMLmodels
+	 * @throws ParserConfigurationException 
 	 */
-	public BDIModel(ArrayList<XMLmodel> XMLmodels){
+	public BDIModel(ArrayList<String> Filenames) throws ParserConfigurationException{
 		/*int size = XMLmodels.size();
 		for(int i = 0; i < size; i++){
 			Agent myAgent = new Agent(XMLmodels.get(i));
 			AgentList.add(myAgent);
 		} */
-		for (XMLmodel model : XMLmodels) {
-			Agent myAgent = new Agent(model);
+		for (String file : Filenames) {
+			Agent myAgent = new Agent(file);
 			AgentList.add(myAgent);
 		}
 		Step();
