@@ -5,6 +5,8 @@ package bDIModel;
 import java.util.ArrayList;
 //import java.util.Date;
 
+import java.util.Date;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 /**
@@ -60,7 +62,7 @@ public class BDIModel {
 					//log belief validation
 					//Event event = belief.getBeliefValidate();
 					String fact=belief.getfact();
-					String date=belief.getDate();
+					Date date=belief.getDate();
 					Goal goal = belief.getGoal();
 					if (goal.checkcondition()) {
 						//log goal condition met

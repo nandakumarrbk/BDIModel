@@ -11,7 +11,7 @@ package bDIModel;
 public class Goal {
 	
 	private String goalType, name, condition;
-	Plan Goalplan;
+	String Goalplan;
 	
 	/**
 	 * The Goal constructor initializes the Goal
@@ -19,11 +19,21 @@ public class Goal {
 	 * associated with it.
 	 * @param goal
 	 */
-	public Goal(Goal goal) {
-		goalType=goal.getGoalType();
-		name=goal.getName();
-		condition=goal.getCondition();
-		Goalplan=goal.getPlan();
+	public Goal(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "goaltype"){
+				this.goalType = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "condition"){
+				this.condition = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "goalplan"){
+				this.Goalplan = attributes[i][1];
+			}
+		}
 	}
 	
 	/**
@@ -77,14 +87,14 @@ public class Goal {
 	 * associated with the Goal.
 	 * @return Goalplan of the Goal
 	 */
-	public Plan getPlan() {
+	public String getPlan() {
 		return this.Goalplan;
 	}
 	/**
 	 * The setPlan method sets the Goalplan of the Goal.
 	 * @param plan
 	 */
-	public void setPlan(Plan plan) {
+	public void setPlan(String plan) {
 		this.Goalplan=plan;
 	}
 	/**

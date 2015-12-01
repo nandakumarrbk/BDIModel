@@ -18,9 +18,9 @@ import java.text.SimpleDateFormat;
  */
 public class Belief {
 	String name,fact;
-	String initDate, validatedDate;
-	Goal beliefGoal;
-	Event beliefValidate;
+	Date initDate,validatedDate;
+	String beliefGoal;
+	String beliefValidate;
 	
 	/**
 	 * The Belief constructor instantiates a Belief object
@@ -28,13 +28,23 @@ public class Belief {
 	 * with the Belief.
 	 * @param belief
 	 */
-	public Belief(Belief belief) {
-		name=belief.getname();
-		fact=belief.getfact();
-		initDate=belief.getDate();
-		validatedDate=initDate;
-		beliefGoal=belief.getGoal();
-		beliefValidate=belief.getBeliefValidate();
+	public Belief(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "beliefgoal"){
+				this.beliefGoal = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "beliefvalidate"){
+				this.beliefValidate = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "fact"){
+				this.fact = attributes[i][1];
+			}
+			this.initDate = new Date();
+			this.validatedDate = this.initDate;
+		}
 	}
 
 	/**
@@ -42,7 +52,7 @@ public class Belief {
 	 * Event associated with this Belief.
 	 * @return The Event that validates this Belief
 	 */
-	public Event getBeliefValidate() {
+	public String getBeliefValidate() {
 		return this.beliefValidate;
 	}
 
@@ -52,7 +62,7 @@ public class Belief {
 	 * of the Belief.
 	 * @param event
 	 */
-	public void setBeliefValidate(Event event) {
+	public void setBeliefValidate(String event) {
 		this.beliefValidate=event;
 	}
 	/**
@@ -86,7 +96,7 @@ public class Belief {
 	 * the Belief.
 	 * @return Goal associated with the Belief
 	 */
-	public Goal getGoal() {
+	public String getGoal() {
 		return this.beliefGoal;
 	}
 	
@@ -94,7 +104,7 @@ public class Belief {
 	 * The setGoal method sets the Goal of the Belief.
 	 * @param goal
 	 */
-	public void setGoal(Goal goal) {
+	public void setGoal(String goal) {
 		this.beliefGoal=goal;
 	}
 	
@@ -111,7 +121,7 @@ public class Belief {
 	 * of the Belief.
 	 * @return validatedDate of the Belief
 	 */
-	public String getVaidatedDate() {
+	public Date getVaidatedDate() {
 		return this.validatedDate;
 	}
 	
@@ -120,7 +130,7 @@ public class Belief {
 	 * and sets that to the validatedDate.
 	 * @param date
 	 */
-	public void updateValidatedDate(String date) {
+	public void updateValidatedDate(Date date) {
 		this.validatedDate=date;
 	}
 	
@@ -129,11 +139,11 @@ public class Belief {
 	 * of the System.
 	 * @return Date and Time
 	 */
-	public String getDate() {
+	public Date getDate() {
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 	    Date dateobj = new Date();
 	    String date= df.format(dateobj);
-	    return date;
+	    return dateobj;
 	}
 	
 	/**
@@ -144,7 +154,7 @@ public class Belief {
 	 */
 	public boolean validateBelief() {
 		String fact=this.getfact();
-		String date=this.getDate();
+		Date date=this.getDate();
 		if(valid(fact)) {
 			this.updateValidatedDate(date);
 			return true;
@@ -194,16 +204,16 @@ public class Belief {
 	 */
 	public boolean isValid() {
 		
-		String dateString=this.validatedDate;
-		String day=this.getDate();
+		Date dateString=this.validatedDate;
+		Date day=this.getDate();
 		Date date=null,today=null;
 		//Date formattedDate=null;
 		DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 		//DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yy HH:mm:ss");
 		try {
-			date = df.parse(dateString);
+			date = dateString;
 			//formattedDate = df.format(date);
-			today=df.parse(day);
+			today=day;
 			long diff = today.getTime() - date.getTime();
 			long diffHours = diff / (60 * 60 * 1000);
 			if (diffHours > 24) {
@@ -212,7 +222,7 @@ public class Belief {
 				return true;
 			}
 			
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			//e.printStackTrace();
 			return false;
 		}

@@ -6,8 +6,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -73,27 +75,43 @@ public class Agent {
 			if(nNode.getNodeType() == Node.ELEMENT_NODE){
 				Element eElement = (Element) nNode;
 				//Create Belief Object with the string parameter
-				//All the constructoors are yet to be changed based on the DOM parser
 				if(eElement.getNodeName() == "belief"){
-					Belief newBelief = new Belief(eElement.getAttributes());
+					String[][] attributes = generateAttributeArray(eElement); 
+					Belief newBelief = new Belief(attributes);
 					this.Beliefs.add(newBelief);
 				}
 				if(eElement.getNodeName() == "plan"){
-					Plan newPlan = new Plan(eElement.getAttributes());
+					String[][] attributes = generateAttributeArray(eElement);
+					Plan newPlan = new Plan(attributes);
 					this.Plans.add(newPlan);
 				}
 				if(eElement.getNodeName() == "goal"){
-					Goal newGoal = new Goal(eElement.getAttributes());
+					String[][] attributes = generateAttributeArray(eElement);
+					Goal newGoal = new Goal(attributes);
 					this.Goals.add(newGoal);
 				}
 				if(eElement.getNodeName() == "event"){
-					Event newEvent = new Event(eElement.getAttributes());
+					String[][] attributes = generateAttributeArray(eElement);
+					Event newEvent = new Event(attributes);
 					this.Events.add(newEvent);
 				}
 			}
 		}
 	}
 
+	public static String[][] generateAttributeArray(Element element){
+		String[][] attributes = null;
+		NamedNodeMap attrib = element.getAttributes();
+		int numAttr = attrib.getLength();
+		for(int i = 0; i < numAttr; i++){
+			Attr attr = (Attr) attrib.item(i);
+			String attrName = attr.getNodeName();
+			String attrValue = attr.getNodeValue();
+			attributes[i][0] = attrName;
+			attributes[i][1] = attrValue;
+		}
+		return attributes;
+	}
 
 	/**
 	 * The getBeliefs method returns the Beliefs of the Agent.

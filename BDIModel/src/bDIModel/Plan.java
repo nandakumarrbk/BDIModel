@@ -11,7 +11,7 @@ package bDIModel;
 public class Plan {
 	int PriorityValue;
 	String name, code;
-	Event planEvent;
+	String planEvent;
 	
 	/**
 	 * The Plan constructor initializes the Plan
@@ -19,11 +19,21 @@ public class Plan {
 	 * associated with the Plan.
 	 * @param plan
 	 */
-	public Plan(Plan plan) {
-		name=plan.getname();
-		code=plan.getcode();
-		planEvent=plan.getevent();
-		PriorityValue=plan.getPriorityValue();
+	public Plan(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "code"){
+				this.code = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "priorityvalue"){
+				this.PriorityValue = Integer.valueOf(attributes[i][1]);
+			}
+			else if(attributes[i][0].toLowerCase() == "planevent"){
+				this.planEvent = attributes[i][1];
+			}
+		}
 	}
 
 	/**
@@ -31,7 +41,7 @@ public class Plan {
 	 * with this Plan.
 	 * @return Event of the Plan
 	 */
-	public Event getevent() {
+	public String getevent() {
 		return this.planEvent;
 	}
 

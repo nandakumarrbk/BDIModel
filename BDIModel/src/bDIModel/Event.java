@@ -15,9 +15,15 @@ public class Event {
 	 * Event name and code.
 	 * @param event
 	 */
-	public Event(Event event) {
-		name=event.getname();
-		code=event.getcode();
+	public Event(String[][] attributes){
+		for(int i = 0; i < attributes.length; i++){
+			if(attributes[i][0].toLowerCase() == "name"){
+				this.name = attributes[i][1];
+			}
+			else if(attributes[i][0].toLowerCase() == "code"){
+				this.code = attributes[i][1];
+			}
+		}
 	}
 	/**
 	 * The execute method executes the code
