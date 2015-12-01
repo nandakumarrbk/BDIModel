@@ -166,6 +166,31 @@ public class Agent {
 		this.agentName = agentName;
 	}
 	
+	public Goal getGoalObject(String name) {
+		for (Goal goal : Goals) {
+			if (goal.getName()==name) {
+				return goal;
+			}
+		}
+		return null;
+	}
 	
+	public Plan getPlanObject(String name) {
+		for (Plan plan : Plans) {
+			if (plan.getname()==name) {
+				return plan;
+			}
+		}
+		return null;
+	}
+	
+	public Event getEventObject(String name) {
+		for (Event event : Events) {
+			if (event.getname()==name) {
+				return event;
+			}
+		}
+		return null;
+	}
 	
 }

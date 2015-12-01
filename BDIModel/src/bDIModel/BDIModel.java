@@ -63,11 +63,14 @@ public class BDIModel {
 					//Event event = belief.getBeliefValidate();
 					String fact=belief.getfact();
 					Date date=belief.getDate();
-					Goal goal = belief.getGoal();
+					String goalstring = belief.getGoal();
+					Goal goal = tempAgent.getGoalObject(goalstring);
 					if (goal.checkcondition()) {
 						//log goal condition met
-						Plan plan = goal.getPlan();
-						Event event=plan.getevent();
+						String planstring = goal.getPlan();
+						Plan plan = tempAgent.getPlanObject(planstring);
+						String eventstring = plan.getevent();
+						Event event = tempAgent.getEventObject(eventstring);
 						event.execute();
 					} else {
 					//log goal check condition failed
