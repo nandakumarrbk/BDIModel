@@ -17,7 +17,7 @@ public class Goal {
 	 * The Goal constructor initializes the Goal
 	 * with name, condition, goalType and the Goalplan 
 	 * associated with it.
-	 * @param goal
+	 * @param attributes
 	 */
 	public Goal(String[][] attributes){
 		for(int i = 0; i < attributes.length; i++){

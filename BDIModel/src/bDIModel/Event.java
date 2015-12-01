@@ -13,7 +13,7 @@ public class Event {
 	/**
 	 * The Event constructor initializes the
 	 * Event name and code.
-	 * @param event
+	 * @param attributes
 	 */
 	public Event(String[][] attributes){
 		for(int i = 0; i < attributes.length; i++){

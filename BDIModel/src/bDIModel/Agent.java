@@ -53,6 +53,13 @@ public class Agent {
 		ReadXMLFile(filename);
 	}
 	
+	/**
+	 * The ReadXMLFile reads the XML input file and parses it.
+	 * It Initializes Agents with Beliefs, plans, Goals and 
+	 * Events which are specified in the XML file.
+	 * @param filename
+	 * @throws ParserConfigurationException
+	 */
 	private void ReadXMLFile(String filename) throws ParserConfigurationException{
 		File fxmlFile = new File(filename);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -99,6 +106,13 @@ public class Agent {
 		}
 	}
 
+	/**
+	 * The generateAttributeArray function generates Attribute Array from
+	 * the input DOM element. It creates a two dimensional array with
+	 * name at index 0 and value at index 1. 
+	 * @param element
+	 * @return attributes array
+	 */
 	public static String[][] generateAttributeArray(Element element){
 		String[][] attributes = null;
 		NamedNodeMap attrib = element.getAttributes();
@@ -166,6 +180,15 @@ public class Agent {
 		this.agentName = agentName;
 	}
 	
+	/**
+	 * The getGoalObject takes the Goal name as input and 
+	 * returns the Goal object with that name. It parses 
+	 * through all the Goals of the agent to find a match.
+	 * If match is found it returns the Goal object or else
+	 * it returns null. 
+	 * @param name
+	 * @return Goal or null 
+	 */
 	public Goal getGoalObject(String name) {
 		for (Goal goal : Goals) {
 			if (goal.getName()==name) {
@@ -175,6 +198,15 @@ public class Agent {
 		return null;
 	}
 	
+	/**
+	 * The getPlanObject takes the Plan name as input and 
+	 * returns the Plan object with that name. It parses 
+	 * through all the Plans of the agent to find a match.
+	 * If match is found it returns the Plan object or else
+	 * it returns null.
+	 * @param name
+	 * @return Plan or null
+	 */
 	public Plan getPlanObject(String name) {
 		for (Plan plan : Plans) {
 			if (plan.getname()==name) {
@@ -184,6 +216,15 @@ public class Agent {
 		return null;
 	}
 	
+	/**
+	 * The getEventObject takes the Event name as input and 
+	 * returns the Event object with that name. It parses 
+	 * through all the Events of the agent to find a match.
+	 * If match is found it returns the Event object or else
+	 * it returns null.
+	 * @param name
+	 * @return Event or null
+	 */
 	public Event getEventObject(String name) {
 		for (Event event : Events) {
 			if (event.getname()==name) {

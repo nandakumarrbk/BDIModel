@@ -26,7 +26,7 @@ public class Belief {
 	 * The Belief constructor instantiates a Belief object
 	 * with initDate, validatedDate and Goal associated 
 	 * with the Belief.
-	 * @param belief
+	 * @param attributes
 	 */
 	public Belief(String[][] attributes){
 		for(int i = 0; i < attributes.length; i++){

@@ -17,7 +17,7 @@ public class Plan {
 	 * The Plan constructor initializes the Plan
 	 * with the name, code, PriorityValue and the planEvent
 	 * associated with the Plan.
-	 * @param plan
+	 * @param attributes
 	 */
 	public Plan(String[][] attributes){
 		for(int i = 0; i < attributes.length; i++){
